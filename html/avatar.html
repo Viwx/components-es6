@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 100px;
+    }
+
+    .img-upload {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      border: 2px dashed lightgray;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .img-upload:hover {
+      border-color: aquamarine;
+    }
+
+    .img-upload__icon {
+      display: block;
+      position: absolute;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+    }
+    .img-upload__input{
+      opacity: 0;
+      position: absolute;
+      z-index: 5;
+      display: block;
+      width: 100%;
+      height: 100px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="img-upload">
+      <img src="../img/plus.svg" alt="上传头像" class="img-upload__icon">
+      <input id="upload" type="file" class="img-upload__input" onchange="preview()">
+    </div>
+  </div>
+</body>
+<script>
+  let upload = document.getElementById('upload'),
+    img = document.getElementsByTagName('img')[0];
+  // upload.addEventListener('change', function(){
+  //   console.log(this.files);
+  // });
+
+  function preview() {
+    let evnt = window.event || e,
+      that = evnt.target,
+      file = that.files[0];
+    if (file) {
+      let read = new FileReader();
+      read.readAsDataURL(file);
+      read.onload = () => {
+        let url = read.result;
+        img.src = url;
+      }
+    }
+  }
+</script>
+
+</html>
